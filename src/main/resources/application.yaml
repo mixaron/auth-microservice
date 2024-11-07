@@ -1,0 +1,31 @@
+server:
+  port: 8081
+
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://db:5432/postgres
+    username: postgres
+    password: 123123
+  application:
+    name: auth-service
+#  jpa:
+#    hibernate:
+#      ddl-auto: create
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://eureka:8761/eureka/
+    register-with-eureka: true
+    fetch-registry: true
+
+jwt:
+  secret: s7gH1MvYz@HsG98M4n2D3FgH9Z2r1J6Kz2S8d9H0J
+  expiration-ms: 3600000 # Время жизни токена (1 час)
+
+logging:
+  level:
+    root: INFO
+    org.springframework.web: DEBUG
+    org.springframework.security: DEBUG
