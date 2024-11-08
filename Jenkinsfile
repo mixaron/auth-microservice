@@ -15,7 +15,7 @@
         stage('Build') {
             steps {
                 script {
-                    sh 'mvn clean install'
+                    bat 'mvn clean install'
                 }
             }
         }
@@ -23,7 +23,7 @@
         stage('Test') {
             steps {
                 script {
-                    sh 'mvn test'
+                    bat 'mvn test'
                 }
             }
         }
@@ -31,7 +31,7 @@
         stage('Docker Build') {
             steps {
                 script {
-                    sh 'docker build -t your-dockerhub-repo/auth-service:${params.IMAGE_TAG} .'
+                    bat 'docker build -t your-dockerhub-repo/auth-service:${params.IMAGE_TAG} .'
                 }
             }
         }
@@ -40,7 +40,7 @@
             steps {
                 script {
                     withDockerRegistry(credentialsId: 'docker-hub-credentials', url: '') {
-                        sh 'docker push your-dockerhub-repo/auth-service:${params.IMAGE_TAG}'
+                        bat 'docker push your-dockerhub-repo/auth-service:${params.IMAGE_TAG}'
                     }
                 }
             }
@@ -49,7 +49,7 @@
         stage('Deploy') {
             steps {
                 script {
-                    sh 'docker-compose up -d'
+                    bat 'docker-compose up -d'
                 }
             }
         }
