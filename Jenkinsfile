@@ -1,6 +1,16 @@
     pipeline {
     agent any
 
+        
+    parameters {
+        string(name: 'IMAGE_TAG', defaultValue: 'v1.0', description: 'Tag for the Docker image')
+    }
+
+    tools {
+        maven 'Maven 3.9.9'
+        dockerTool 'Docker'
+    }
+        
     stages {
         stage('Build') {
             steps {
@@ -21,7 +31,7 @@
         stage('Docker Build') {
             steps {
                 script {
-                    sh 'docker build -t your-dockerhub-repo/auth-service:latest .'
+                    sh 'docker build -t your-dockerhub-repo/auth-service:${params.IMAGE_TAG} .'
                 }
             }
         }
@@ -30,7 +40,7 @@
             steps {
                 script {
                     withDockerRegistry(credentialsId: 'docker-hub-credentials', url: '') {
-                        sh 'docker push your-dockerhub-repo/auth-service:latest'
+                        sh 'docker push your-dockerhub-repo/auth-service:${params.IMAGE_TAG}'
                     }
                 }
             }
