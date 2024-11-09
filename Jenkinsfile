@@ -31,7 +31,7 @@
         stage('Docker Build') {
             steps {
                 script {
-                    bat 'docker build -t mixaron/auth-service:${params.IMAGE_TAG} .'
+                    bat 'docker build -t mixaron/auth-service:v1.0 .'
                 }
             }
         }
@@ -40,7 +40,7 @@
             steps {
                 script {
                     withDockerRegistry(credentialsId: 'docker-hub-credentials', url: '') {
-                        bat 'docker push mixaron/auth-service:${params.IMAGE_TAG}'
+                        bat 'docker push mixaron/auth-service:v1.0'
                     }
                 }
             }
